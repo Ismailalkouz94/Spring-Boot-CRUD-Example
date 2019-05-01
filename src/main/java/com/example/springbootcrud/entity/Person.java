@@ -1,9 +1,6 @@
 package com.example.springbootcrud.entity;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 @Entity
 public class Person {
@@ -13,6 +10,7 @@ public class Person {
 
     private String name;
 
+    @Column(unique = true)
     private String email;
 
     public Long getId() {
@@ -37,5 +35,14 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
