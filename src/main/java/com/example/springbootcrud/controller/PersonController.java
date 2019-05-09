@@ -2,6 +2,8 @@ package com.example.springbootcrud.controller;
 
 import com.example.springbootcrud.daolayer.PersonCRUD;
 import com.example.springbootcrud.entity.Person;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequestMapping(path = "/person")
 public class PersonController {
 
+    private static final Logger logger = LogManager.getLogger(PersonController.class);
     @Autowired
     private PersonCRUD personCRUD;
 
@@ -49,6 +52,13 @@ public class PersonController {
 
     @RequestMapping(value = "/listAll", method = RequestMethod.GET)
     public List<Person> listAll() {
+        logger.info("Enter listAll");
+        List<Person> list=(List<Person>) personCRUD.findAll();
+        for (Person item:list) {
+            logger.info(">>>> "+item);
+        }
+
+        logger.info("Exit create");
         return (List<Person>) personCRUD.findAll();
     }
 

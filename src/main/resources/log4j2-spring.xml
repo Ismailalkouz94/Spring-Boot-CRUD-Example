@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+
+	<Properties>
+ 		<property name="log-path" value="logs/mylog"/>
+		<Property name="log-project-name">Spring-Boot</Property>
+		<Property name="log-pattern">%d{ISO8601} %-5p [Sample][%t|%c{1}] %L %M %m\n</Property>
+		<Property name="rollover-strategy-max">50</Property>
+		<Property name="rolling-size-based">10 MB</Property>
+		<Property name="previous-log-format">%d{dd-MM-yyyy}</Property>
+		<Property name="previous-log-path">${log-path}/previous-log/${log-project-name}-${previous-log-format}</Property>
+	</Properties>
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>${log-pattern}</pattern>
+			</PatternLayout>
+		</Console>
+
+
+		<!--////////////////////// for daily logging ////////////////////////////////-->
+		<RollingFile name="roll-by-time"
+					 fileName="${log-path}/${log-project-name}-debug.log"
+					 filePattern="${previous-log-path}/${log-project-name}-debug-${previous-log-format}.log.zip"
+					 ignoreExceptions="false">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss} %p %m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+
+		<RollingFile name="roll-by-time"
+					 fileName="${log-path}/${log-project-name}-error.log"
+					 filePattern="${previous-log-path}/${log-project-name}-error-${previous-log-format}.log.zip"
+					 ignoreExceptions="false">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss} %p %m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+
+		<RollingFile name="roll-by-time"
+					 fileName="${log-path}/${log-project-name}-info.log"
+					 filePattern="${previous-log-path}/${log-project-name}-info-${previous-log-format}.log.zip"
+					 ignoreExceptions="false">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss} %p %m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!--//////////////////////////////////-->
+
+	 <RollingFile name="DEBUG" fileName="${log-path}/${log-project-name}-debug.log" filePattern="${log-path}/${log-project-name}-debug-%d-%i.log.zip">
+		<PatternLayout>
+			<pattern>${log-pattern}</pattern>
+		</PatternLayout>
+		<Policies>
+			<SizeBasedTriggeringPolicy size="${rolling-size-based}" />
+		</Policies>
+		<DefaultRolloverStrategy max="${rollover-strategy-max}" />
+	</RollingFile>
+	 <RollingFile name="ERROR" fileName="${log-path}/${log-project-name}-error.log" filePattern="${log-path}/${log-project-name}-error-%d-%i.log.zip">
+		<PatternLayout>
+			<pattern>${log-pattern}</pattern>
+		</PatternLayout>
+		<Policies>
+			<SizeBasedTriggeringPolicy size="${rolling-size-based}" />
+		</Policies>
+		<DefaultRolloverStrategy max="${rollover-strategy-max}" />
+	</RollingFile>
+	<RollingFile name="INFO" fileName="${log-path}/${log-project-name}-info.log" filePattern="${log-path}/${log-project-name}-info-%d-%i.log.zip">
+		<PatternLayout>
+			<pattern>${log-pattern}</pattern>
+		</PatternLayout>
+		<Policies>
+			<SizeBasedTriggeringPolicy size="${rolling-size-based}" />
+		</Policies>
+		<DefaultRolloverStrategy max="${rollover-strategy-max}" />
+		<Filters>
+			<!-- Now deny warn, error and fatal messages -->
+			<ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL" />
+			<ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL" />
+			<ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL" />
+
+			<!-- This filter accepts info, warn, error, fatal and denies debug/trace -->
+			<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+		</Filters>
+	</RollingFile>
+
+	</appenders>
+
+	<Loggers>
+		<logger name="com.example.springbootcrud" level="trace" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="ERROR" level="error" />
+			<AppenderRef ref="DEBUG" level="debug" />
+			<AppenderRef ref="INFO" level="info" />
+		</logger>
+	</Loggers>
+</configuration>

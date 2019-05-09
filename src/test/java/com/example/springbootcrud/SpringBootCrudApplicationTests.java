@@ -33,7 +33,7 @@ public class SpringBootCrudApplicationTests {
     public void findByEmailContains() {
         List<Person> person=personCRUD.findByEmailContains("com");
         person.forEach(System.out::println);
-        Assert.assertEquals(person.size(),2);
+        Assert.assertEquals(person.size(),3);
     }
 
     @Test
