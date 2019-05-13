@@ -1,13 +1,16 @@
 package com.example.springbootcrud.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
+@NamedQuery(name = "Person.findByNameNQ",query = "select p from Person p where p.name = ?1")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     private String name;
 
     @Column(unique = true)
