@@ -5,10 +5,7 @@ import com.example.springbootcrud.service.PersonService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,13 +29,19 @@ public class PersonController {
         return personService.save(person);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Person update(@RequestParam(value = "id") Long id, @RequestParam(value = "name") String name, @RequestParam(value = "email") String email) {
+//    @RequestMapping(value = "/update", method = RequestMethod.POST)
+//    public Person update(@RequestParam(value = "id") Long id, @RequestParam(value = "name") String name, @RequestParam(value = "email") String email) {
+//
+//        Person person = new Person();
+//        person.setId(id);
+//        person.setName(name);
+//        person.setEmail(email);
+//
+//        return personService.save(person);
+//    }
 
-        Person person = new Person();
-        person.setId(id);
-        person.setName(name);
-        person.setEmail(email);
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public Person update(@RequestBody Person person) {
 
         return personService.save(person);
     }
