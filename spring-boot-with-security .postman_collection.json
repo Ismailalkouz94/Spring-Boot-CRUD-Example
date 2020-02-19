@@ -1,0 +1,180 @@
+{
+	"info": {
+		"_postman_id": "a5c8fbb7-97ad-414f-964e-f20cdf1905ea",
+		"name": "spring-boot-with-security ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "generate token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"ismail\",\n\t\"password\":\"ismail\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/spring-boot-crud/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"spring-boot-crud",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list all users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpc21haWwiLCJleHAiOjE1ODIwNDY3ODUsImlhdCI6MTU4MjAyODc4NX0.DIU4Ulp_dF4D7sehgivHPbEBbsEmob37hpyaOqtxjPL0Jw8dr5QGz9Zo9IYegGkxVWz0sYeggum371T1QVvayQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/spring-boot-crud/person/listAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"spring-boot-crud",
+						"person",
+						"listAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpc21haWwiLCJleHAiOjE1ODIwNDY3ODUsImlhdCI6MTU4MjAyODc4NX0.DIU4Ulp_dF4D7sehgivHPbEBbsEmob37hpyaOqtxjPL0Jw8dr5QGz9Zo9IYegGkxVWz0sYeggum371T1QVvayQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/spring-boot-crud/person/create?name=ismail&email=hello@gmail.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"spring-boot-crud",
+						"person",
+						"create"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "ismail"
+						},
+						{
+							"key": "email",
+							"value": "hello@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpc21haWwiLCJleHAiOjE1ODIwNDY3ODUsImlhdCI6MTU4MjAyODc4NX0.DIU4Ulp_dF4D7sehgivHPbEBbsEmob37hpyaOqtxjPL0Jw8dr5QGz9Zo9IYegGkxVWz0sYeggum371T1QVvayQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n    \"name\": \"ismailkouz\",\n    \"email\": \"62.64864083024191@test.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/spring-boot-crud/person/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"spring-boot-crud",
+						"person",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpc21haWwiLCJleHAiOjE1ODIwNDY3ODUsImlhdCI6MTU4MjAyODc4NX0.DIU4Ulp_dF4D7sehgivHPbEBbsEmob37hpyaOqtxjPL0Jw8dr5QGz9Zo9IYegGkxVWz0sYeggum371T1QVvayQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/spring-boot-crud/person/delete?id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"spring-boot-crud",
+						"person",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
