@@ -1,6 +1,7 @@
 package com.example.springbootcrud.daolayer;
 
 import com.example.springbootcrud.entity.Person;
+import com.sun.xml.internal.stream.StaxErrorReporter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,5 @@ public interface PersonDAO extends JpaRepository<Person,Long> {
     public Page<Person> findAll(Pageable pageable);
     public List<Person> findAll();
     public List<Person> findByNameNQ(String name);
+    public boolean existsPersonByNameAndEmail(String name, String email);
 }

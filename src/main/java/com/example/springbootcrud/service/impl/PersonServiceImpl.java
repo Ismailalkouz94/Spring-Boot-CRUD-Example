@@ -4,6 +4,8 @@ import com.example.springbootcrud.daolayer.PersonDAO;
 import com.example.springbootcrud.entity.Person;
 import com.example.springbootcrud.exception.CustomException;
 import com.example.springbootcrud.service.PersonService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Service
 public class PersonServiceImpl implements PersonService {
+    private static final Logger logger = LogManager.getLogger(PersonServiceImpl.class);
 
     @Autowired
     private PersonDAO personDAO;
@@ -21,7 +24,7 @@ public class PersonServiceImpl implements PersonService {
     public Person findPersonByEmailAndId(String email, Long id) {
         try {
             return personDAO.findPersonByEmailAndId(email, id);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new CustomException(e.getMessage());
         }
     }
@@ -58,6 +61,14 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person save(Person person) {
+        try {
+            if (personDAO.existsPersonByNameAndEmail(person.getName(),person.getEmail())) {
+                throw new CustomException("person already exist");
+            }
+        } catch (CustomException e) {
+            logger.error("person already exist");
+            throw new CustomException(e.getMessage());
+        }
         return personDAO.save(person);
     }
 

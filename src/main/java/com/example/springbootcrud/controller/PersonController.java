@@ -1,6 +1,7 @@
 package com.example.springbootcrud.controller;
 
 import com.example.springbootcrud.entity.Person;
+import com.example.springbootcrud.exception.CustomException;
 import com.example.springbootcrud.service.PersonService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,8 +26,12 @@ public class PersonController {
         Person person = new Person();
         person.setName(name);
         person.setEmail(email);
-
-        return personService.save(person);
+        try {
+            return personService.save(person);
+        }catch (CustomException e){
+            logger.error("person already exist");
+            throw new CustomException(e.getMessage());
+        }
     }
 
 //    @RequestMapping(value = "/update", method = RequestMethod.POST)
