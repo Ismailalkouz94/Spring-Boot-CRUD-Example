@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/person")
+@RequestMapping(path = "/persons")
 public class PersonController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class PersonController {
 
     private static final Logger logger = LogManager.getLogger(PersonController.class);
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Person create(@RequestParam(value = "name") @Valid String name, @RequestParam(value = "email") String email) {
 
         Person person = new Person();
@@ -28,7 +28,7 @@ public class PersonController {
         person.setEmail(email);
         try {
             return personService.save(person);
-        }catch (CustomException e){
+        } catch (CustomException e) {
             logger.error("person already exist");
             throw new CustomException(e.getMessage());
         }
@@ -45,13 +45,13 @@ public class PersonController {
 //        return personService.save(person);
 //    }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public Person update(@RequestBody Person person) {
 
         return personService.save(person);
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public String delete(@RequestParam(value = "id") Long id) {
 
         Person person = new Person();
@@ -60,7 +60,7 @@ public class PersonController {
         return "OK";
     }
 
-    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Person> listAll() {
         logger.info("Enter listAll");
         List<Person> list = personService.findAll();
@@ -69,6 +69,15 @@ public class PersonController {
         }
         logger.info("Exit listAll");
         return personService.findAll();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Person findById(@PathVariable Long id) {
+        logger.info("Enter findById");
+        Person person = personService.findById(id);
+        logger.info(">>>> " + person);
+        logger.info("Exit findById");
+        return person;
     }
 
 }

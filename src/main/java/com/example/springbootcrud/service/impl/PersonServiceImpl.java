@@ -76,4 +76,9 @@ public class PersonServiceImpl implements PersonService {
     public List<Person> findByNameNQ(String name) {
         return personDAO.findByNameNQ(name);
     }
+
+    @Override
+    public Person findById(Long id) {
+        return personDAO.findById(id).get();
+    }
 }

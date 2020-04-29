@@ -16,4 +16,5 @@ public interface PersonService {
     public void delete(Person person);
     public Person save(Person person);
     public List<Person> findByNameNQ(String name);
+    public Person findById(Long id);
 }
